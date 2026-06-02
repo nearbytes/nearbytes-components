@@ -42,7 +42,8 @@ export interface AppState {
 }
 
 export function createAppState(): AppState {
-  return $state<AppState>({
+  // `$state` must initialize a declaration (not a bare return expression).
+  const state = $state<AppState>({
     status: { text: 'Starting NearBytes…', kind: 'syncing' },
     profiles: [],
     activeProfile: null,
@@ -53,6 +54,7 @@ export function createAppState(): AppState {
     chat: { items: [], draft: '' },
     panel: 'files'
   });
+  return state;
 }
 
 /** Currently-selected file (derived helper; pure, no side effects). */
