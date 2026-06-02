@@ -6,7 +6,7 @@ export { createAppState, selectedFile } from './stores/appState.svelte.js';
 export type { AppState, AppStatus, FilesView, ChatView, WorkPanel } from './stores/appState.svelte.js';
 export { provideAppState, useAppState, provideAdapter, useAdapter } from './context.js';
 export type {
-  NearbytesAdapter, SyncStatus, VolumeView,
+  NearbytesAdapter, SyncStatus, VolumeView, Whoami,
   ProfileApi, HubApi, FileApi, ChatApi, FriendApi
 } from './adapter.js';
 

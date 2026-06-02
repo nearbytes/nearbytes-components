@@ -13,9 +13,17 @@
 import type {
   FileMetadata,
   DirectoryMetadata,
+  TimelineEvent,
 } from 'nearbytes-files';
 import type { ChatTimelineItem } from 'nearbytes-chat';
 import type { ProfileConfig, VolumeConfig } from 'nearbytes-skeleton';
+
+export interface Whoami {
+  readonly peerId: string;
+  readonly instanceKey: string;
+  readonly activeProfile: string | null;
+  readonly activeProfileKey: string;
+}
 
 export interface SyncStatus {
   /** Central textual status shown on startup (mirrors CLI banner lines). */
@@ -61,7 +69,10 @@ export interface FileApi {
   add(localPath: string, name?: string): Promise<void>;
   get(name: string, outputPath: string): Promise<void>;
   remove(name: string): Promise<void>;
-  /** Placeholder: hand the materialized file to the OS default app. */
+  mkdir(path: string): Promise<void>;
+  rename(fromPath: string, toPath: string): Promise<void>;
+  timeline(): Promise<TimelineEvent[]>;
+  /** Materialize the file to a temp path and hand it to the OS default app. */
   openExternally(name: string): Promise<void>;
 }
 
@@ -83,4 +94,6 @@ export interface NearbytesAdapter extends AdapterEvents {
   readonly chat: ChatApi;
   readonly friend: FriendApi;
   status(): Promise<SyncStatus>;
+  whoami(): Promise<Whoami>;
+  peers(): Promise<ReadonlyArray<unknown>>;
 }
