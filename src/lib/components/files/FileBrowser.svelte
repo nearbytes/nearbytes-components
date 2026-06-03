@@ -32,17 +32,22 @@
     searching = false;
   }
 
+  async function ingest(list: File[]) {
+    for (const f of list) {
+      const bytes = new Uint8Array(await f.arrayBuffer());
+      await adapter.file.addBytes(joinPath(files.cwd, f.name), bytes);
+    }
+  }
+
   async function onDrop(e: DragEvent) {
     e.preventDefault();
     dragging = false;
-    const dropped = Array.from(e.dataTransfer?.files ?? []) as Array<File & { path?: string }>;
-    for (const f of dropped) if (f.path) await adapter.file.add(f.path, joinPath(files.cwd, f.name));
+    await ingest(Array.from(e.dataTransfer?.files ?? []));
   }
 
   async function onPick(e: Event) {
     const input = e.currentTarget as HTMLInputElement;
-    const list = Array.from(input.files ?? []) as Array<File & { path?: string }>;
-    for (const f of list) if (f.path) await adapter.file.add(f.path, joinPath(files.cwd, f.name));
+    await ingest(Array.from(input.files ?? []));
     input.value = '';
   }
 

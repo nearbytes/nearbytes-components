@@ -123,6 +123,10 @@ export function createMockAdapter(): NearbytesAdapter {
         model.files.push(f(base, 10_000, undefined, 0));
         pushVol();
       },
+      addBytes: async (name, data) => {
+        model.files.push(f(name, data.byteLength, undefined, 0));
+        pushVol();
+      },
       get: async () => {},
       remove: async (name) => { model.files = model.files.filter((x) => x.path !== name && x.path.split('/').pop() !== name); pushVol(); },
       mkdir: async (path) => { model.files.push(f(`${path}/.keep`, 0, undefined, 0)); pushVol(); },

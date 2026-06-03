@@ -71,6 +71,12 @@ export interface HubApi {
 export interface FileApi {
   list(): Promise<VolumeView>;
   add(localPath: string, name?: string): Promise<void>;
+  /**
+   * Add a file from raw bytes read in the renderer (drag-drop / file picker).
+   * Portable: avoids the removed Electron `File.path`. `name` is the full
+   * destination path inside the active hub.
+   */
+  addBytes(name: string, data: Uint8Array): Promise<void>;
   get(name: string, outputPath: string): Promise<void>;
   remove(name: string): Promise<void>;
   mkdir(path: string): Promise<void>;
