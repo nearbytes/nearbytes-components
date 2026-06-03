@@ -9,6 +9,9 @@ boundary for all non-renderer capability.
 All work MUST follow **[SWE/CODING.md](./SWE/CODING.md)** (shared UI guidelines).
 
 ## Rules specific to this repo
+- Compose UI from **shadcn-svelte** primitives exported by `nearbytes-widgets`
+  (`Button`, `Card`, `Label`, `Alert`, `AlertDialog`, `DropdownMenu`, `ContextMenu`, …).
+  Do not use raw `<button>` / hand-rolled dialogs when a primitive exists.
 - Renderer-only. Import protocol domain types with `import type` only
   (`nearbytes-files`, `nearbytes-chat`, `nearbytes-skeleton`); never their runtime.
 - No Node/Electron. Side-effecting capability goes through `NearbytesAdapter`
@@ -19,5 +22,7 @@ All work MUST follow **[SWE/CODING.md](./SWE/CODING.md)** (shared UI guidelines)
   behaviour (profiles, hubs/volumes, friends) match the CLI exactly.
 
 ## Layout
-- `components/sources` · `components/files` · `components/chat`
-- `components/profile` · `components/settings` · `components/shell`
+- `components/shell` — `AppShell`, `FinderShell`, `StatusBar` (full desktop layout)
+- `components/sources` — profiles, hubs, friends (`ManagedList` inline editing)
+- `components/list` — reusable `ManagedList` (drag reorder, add/edit/delete)
+- `components/files` · `components/chat` · `components/profile`

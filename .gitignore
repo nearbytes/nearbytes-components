@@ -3,3 +3,13 @@ dist
 .svelte-kit
 *.tsbuildinfo
 .DS_Store
+
+# yarn berry — keep .yarnrc.yml + releases, ignore caches/state
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+.pnp.*
+
+# editor / preview-harness local config
+.claude/

@@ -19,12 +19,14 @@
 
 <ContextMenu.Root>
   <ContextMenu.Trigger>
-    <ListItem {selected} onselect={() => onselect?.(file.path)}>
+    {#snippet child({ props }: { props: Record<string, unknown> })}
+      <ListItem {selected} onselect={() => onselect?.(file.path)} {...props}>
       <span class="flex min-w-0 flex-1 items-center justify-between gap-3">
         <FileName path={file.path} />
         <Badge>{fmtSize(file.size)}</Badge>
       </span>
-    </ListItem>
+      </ListItem>
+    {/snippet}
   </ContextMenu.Trigger>
   <ContextMenu.Content>
     <ContextMenu.Item onSelect={() => adapter.file.openExternally(name)}>

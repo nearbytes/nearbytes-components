@@ -5,20 +5,19 @@
   import FileInspector from '../files/FileInspector.svelte';
   import { useAppState } from '../../context.js';
 
-  // Finder-like file manager shell: sources · browser · inspector.
   const app = useAppState();
 </script>
 
-<Resizable.PaneGroup direction="horizontal" class="h-full">
-  <Resizable.Pane defaultSize={20} minSize={14} maxSize={32}>
+<Resizable.PaneGroup direction="horizontal" class="h-full min-h-0 flex-1">
+  <Resizable.Pane defaultSize={22} minSize={16} maxSize={34}>
     <SourcesPanel />
   </Resizable.Pane>
   <Resizable.Handle />
-  <Resizable.Pane defaultSize={52} minSize={30}>
-    <FileBrowser files={app.files} />
+  <Resizable.Pane defaultSize={48} minSize={28}>
+    <FileBrowser files={app.files} hubLabel={app.activeHub} />
   </Resizable.Pane>
   <Resizable.Handle />
-  <Resizable.Pane defaultSize={28} minSize={18} maxSize={40}>
+  <Resizable.Pane defaultSize={30} minSize={20} maxSize={44}>
     <FileInspector files={app.files} />
   </Resizable.Pane>
 </Resizable.PaneGroup>

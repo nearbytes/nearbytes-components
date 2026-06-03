@@ -16,7 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite dev",
+    "dev": "node scripts/watch-build.mjs",
     "build": "svelte-package",
     "prepack": "svelte-package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
@@ -24,21 +24,21 @@
     "prepare": "svelte-package"
   },
   "peerDependencies": {
-    "svelte": "^5.0.0",
-    "nearbytes-widgets": "*"
+    "nearbytes-widgets": "*",
+    "svelte": "^5.0.0"
   },
   "dependencies": {
     "@lucide/svelte": "^0.482.0",
     "nearbytes-widgets": "github:nearbytes/nearbytes-widgets"
   },
   "devDependencies": {
-    "nearbytes-widgets": "github:nearbytes/nearbytes-widgets",
     "@sveltejs/package": "^2.3.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@tailwindcss/vite": "^4.0.0",
     "nearbytes-chat": "github:nearbytes/nearbytes-chat",
     "nearbytes-files": "github:nearbytes/nearbytes-files",
     "nearbytes-skeleton": "github:nearbytes/nearbytes-skeleton",
+    "nearbytes-widgets": "github:nearbytes/nearbytes-widgets",
     "svelte": "^5.20.0",
     "svelte-check": "^4.1.0",
     "tailwindcss": "^4.0.0",

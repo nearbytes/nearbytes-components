@@ -10,8 +10,6 @@ import type { ChatTimelineItem } from 'nearbytes-chat';
 import type { ProfileConfig, VolumeConfig } from 'nearbytes-skeleton';
 import type { StatusKind } from 'nearbytes-widgets';
 
-export type WorkPanel = 'files' | 'settings';
-
 export interface FilesView {
   items: FileMetadata[];
   directories: DirectoryMetadata[];
@@ -29,8 +27,15 @@ export interface AppStatus {
   kind: StatusKind;
 }
 
+export interface Identity {
+  /** Active profile public key hex — own author key for chat + sharing. */
+  publicKey: string | null;
+  peerId: string | null;
+}
+
 export interface AppState {
   status: AppStatus;
+  identity: Identity;
   profiles: ProfileConfig[];
   activeProfile: string | null;
   hubs: VolumeConfig[];
@@ -38,21 +43,20 @@ export interface AppState {
   friends: string[];
   files: FilesView;
   chat: ChatView;
-  panel: WorkPanel;
 }
 
 export function createAppState(): AppState {
   // `$state` must initialize a declaration (not a bare return expression).
   const state = $state<AppState>({
     status: { text: 'Starting NearBytes…', kind: 'syncing' },
+    identity: { publicKey: null, peerId: null },
     profiles: [],
     activeProfile: null,
     hubs: [],
     activeHub: null,
     friends: [],
     files: { items: [], directories: [], cwd: '', selectedPath: null },
-    chat: { items: [], draft: '' },
-    panel: 'files'
+    chat: { items: [], draft: '' }
   });
   return state;
 }

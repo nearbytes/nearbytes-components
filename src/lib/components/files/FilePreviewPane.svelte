@@ -7,14 +7,17 @@
   const isImage = $derived(file?.mimeType?.startsWith('image/') ?? false);
 </script>
 
-<FilePreview fallbackLabel={file ? 'Preview unavailable' : 'No file selected'}>
+<FilePreview
+  class="h-full w-full"
+  fallbackLabel={file ? 'Preview unavailable' : 'No file selected'}
+>
   {#if file}
     {#if isImage}
       <Icon glyph={FileText} size={40} class="text-nb-faint" />
     {:else}
       <div class="flex flex-col items-center gap-2 text-nb-faint">
         <Icon glyph={FileText} size={40} />
-        <span class="text-[12px]">{file.path.split('/').pop()}</span>
+        <span class="max-w-full truncate px-2 text-[12px]">{file.path.split('/').pop()}</span>
       </div>
     {/if}
   {/if}

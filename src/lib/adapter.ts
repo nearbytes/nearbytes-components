@@ -49,6 +49,8 @@ export interface ProfileApi {
   add(name: string, secret: string): Promise<void>;
   use(name: string): Promise<void>;
   remove(name: string): Promise<void>;
+  update(name: string, patch: { readonly name?: string; readonly secret?: string }): Promise<void>;
+  reorder(names: readonly string[]): Promise<void>;
   publish(displayName: string, bio?: string, asProfile?: string): Promise<void>;
   active(): Promise<string | null>;
   /** Active profile public key hex (share with friends). */
@@ -61,6 +63,8 @@ export interface HubApi {
   add(label: string, secret: string): Promise<void>;
   use(label: string): Promise<void>;
   forget(label: string): Promise<void>;
+  update(label: string, patch: { readonly label?: string; readonly secret?: string }): Promise<void>;
+  reorder(labels: readonly string[]): Promise<void>;
   active(): Promise<string | null>;
 }
 
@@ -85,6 +89,7 @@ export interface FriendApi {
   list(): Promise<string[]>;
   add(publicKeyHex: string): Promise<void>;
   remove(publicKeyOrPrefix: string): Promise<void>;
+  reorder(keys: readonly string[]): Promise<void>;
 }
 
 export interface NearbytesAdapter extends AdapterEvents {
