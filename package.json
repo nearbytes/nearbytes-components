@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "refresh": "node scripts/refresh.mjs",
-    "dev": "node scripts/refresh.mjs && node scripts/watch-build.mjs",
+    "dev": "node scripts/dev-bootstrap.mjs && node scripts/watch-build.mjs",
     "dev:fast": "node scripts/watch-build.mjs",
     "build": "svelte-package",
     "prepack": "svelte-package",
