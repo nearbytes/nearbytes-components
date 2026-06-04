@@ -16,7 +16,9 @@
     "dist"
   ],
   "scripts": {
-    "dev": "node scripts/watch-build.mjs",
+    "refresh": "node scripts/refresh.mjs",
+    "dev": "node scripts/refresh.mjs && node scripts/watch-build.mjs",
+    "dev:fast": "node scripts/watch-build.mjs",
     "build": "svelte-package",
     "prepack": "svelte-package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
