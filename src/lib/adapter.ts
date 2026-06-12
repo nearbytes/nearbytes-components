@@ -35,6 +35,14 @@ export interface SyncStatus {
 export interface VolumeView {
   readonly files: ReadonlyArray<FileMetadata>;
   readonly directories: ReadonlyArray<DirectoryMetadata>;
+  /** `null` = live head; non-null = read-only historical view at this event. */
+  readonly cursorHash: string | null;
+}
+
+export interface VolumeCursorApi {
+  get(): Promise<string | null>;
+  goto(eventHash: string): Promise<VolumeView>;
+  live(): Promise<VolumeView>;
 }
 
 /** Snapshot push from the adapter into the renderer store (sync-driven). */
@@ -101,6 +109,7 @@ export interface FriendApi {
 export interface NearbytesAdapter extends AdapterEvents {
   readonly profile: ProfileApi;
   readonly hub: HubApi;
+  readonly volume: VolumeCursorApi;
   readonly file: FileApi;
   readonly chat: ChatApi;
   readonly friend: FriendApi;

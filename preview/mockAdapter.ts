@@ -59,7 +59,8 @@ function dirsFor(): DirectoryMetadata[] {
   }
   return [...set].map(d);
 }
-const view = (): VolumeView => ({ files: model.files, directories: dirsFor() });
+let mockCursorHash: string | null = null;
+const view = (): VolumeView => ({ files: model.files, directories: dirsFor(), cursorHash: mockCursorHash });
 const pushVol = () => volFns.forEach((fn) => fn(view()));
 
 let chat: ChatTimelineItem[] = [
@@ -115,6 +116,11 @@ export function createMockAdapter(): NearbytesAdapter {
         model.hubs = labels.map((l) => by.get(l)!).filter(Boolean);
       },
       active: async () => model.activeHub
+    },
+    volume: {
+      get: async () => mockCursorHash,
+      goto: async (hash) => { mockCursorHash = hash; pushVol(); return view(); },
+      live: async () => { mockCursorHash = null; pushVol(); return view(); }
     },
     file: {
       list: async () => view(),

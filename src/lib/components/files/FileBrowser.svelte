@@ -7,7 +7,11 @@
   import type { FilesView } from '../../stores/appState.svelte.js';
   import { useAdapter } from '../../context.js';
 
-  let { files, hubLabel = null }: { files: FilesView; hubLabel?: string | null } = $props();
+  let {
+    files,
+    hubLabel = null,
+    readOnly = false
+  }: { files: FilesView; hubLabel?: string | null; readOnly?: boolean } = $props();
   const adapter = useAdapter();
 
   let dragging = $state(false);
@@ -97,11 +101,12 @@
         {/if}
         <Button variant="ghost" size="icon" class="size-7 rounded-md text-nb-faint hover:bg-white/8 hover:text-nb-text"
           onclick={() => { creatingFolder = true; folderName = ''; }} aria-label="New folder" title="New folder"
-          disabled={hubLabel === null}>
+          disabled={hubLabel === null || readOnly}>
           <Icon glyph={FolderPlus} size={15} />
         </Button>
         <Button variant="ghost" size="icon" class="size-7 rounded-md text-nb-faint hover:bg-white/8 hover:text-nb-text"
-          onclick={() => picker?.click()} aria-label="Add files" title="Add files" disabled={hubLabel === null}>
+          onclick={() => picker?.click()} aria-label="Add files" title="Add files"
+          disabled={hubLabel === null || readOnly}>
           <Icon glyph={Upload} size={15} />
         </Button>
       </div>
@@ -116,8 +121,13 @@
     class={['flex min-h-0 flex-1 flex-col overflow-hidden transition-colors', dragging && 'bg-nb-accent/8']}
     ondragover={(e) => { e.preventDefault(); dragging = true; }}
     ondragleave={() => (dragging = false)}
-    ondrop={onDrop}
+    ondrop={(e) => { if (!readOnly) void onDrop(e); }}
   >
+    {#if readOnly}
+      <p class="shrink-0 border-b border-nb-hairline bg-nb-group/60 px-3 py-1.5 text-center text-[11px] text-nb-faint">
+        Browsing history — files are read-only
+      </p>
+    {/if}
     {#if creatingFolder}
       <form class="mx-3 mt-3 flex items-center gap-2 rounded-lg bg-nb-group p-2"
         onsubmit={(e) => { e.preventDefault(); void submitFolder(); }}>
@@ -150,7 +160,9 @@
               selected={entry.kind === 'file' && entry.path === files.selectedPath}
               onopen={() => entry.kind === 'dir' ? navigate(entry.path) : adapter.file.openExternally(entry.name)}
               onselect={() => entry.kind === 'dir' ? navigate(entry.path) : (files.selectedPath = entry.path)}
-              onremove={() => adapter.file.remove(entry.kind === 'file' ? entry.name : entry.path)}
+              onremove={() => {
+                if (!readOnly) void adapter.file.remove(entry.kind === 'file' ? entry.name : entry.path);
+              }}
             />
           {/each}
         </ul>

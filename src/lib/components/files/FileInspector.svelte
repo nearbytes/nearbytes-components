@@ -8,7 +8,7 @@
   import { selectedFile } from '../../stores/appState.svelte.js';
   import { useAdapter } from '../../context.js';
 
-  let { files }: { files: FilesView } = $props();
+  let { files, readOnly = false }: { files: FilesView; readOnly?: boolean } = $props();
   const adapter = useAdapter();
   const file = $derived(selectedFile(files));
   const name = $derived(file ? basename(file.path) : '');
@@ -81,7 +81,7 @@
               <Button type="button" variant="ghost" size="icon" class="size-7 text-nb-faint" onclick={() => (renaming = false)}><Icon glyph={X} size={15} /></Button>
             </form>
           {:else}
-            <button type="button" class="group flex max-w-full items-center gap-1.5" onclick={startRename} title="Rename">
+            <button type="button" class="group flex max-w-full items-center gap-1.5" onclick={startRename} title="Rename" disabled={readOnly}>
               <span class="truncate text-center text-[14px] font-semibold text-nb-text">{name}</span>
               <Icon glyph={Pencil} size={12} class="shrink-0 text-nb-faint opacity-0 transition-opacity group-hover:opacity-100" />
             </button>
@@ -94,7 +94,7 @@
           <Button variant="subtle" size="sm" class="justify-center" onclick={() => adapter.file.openExternally(name)}>
             <Icon glyph={ExternalLink} size={14} /> Open
           </Button>
-          <Button variant="subtle" size="sm" class="justify-center text-nb-error hover:bg-nb-error/15" onclick={remove}>
+          <Button variant="subtle" size="sm" class="justify-center text-nb-error hover:bg-nb-error/15" onclick={remove} disabled={readOnly}>
             <Icon glyph={Trash2} size={14} /> Remove
           </Button>
         </div>

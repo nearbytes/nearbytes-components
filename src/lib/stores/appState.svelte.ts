@@ -5,7 +5,7 @@
  *
  * This is VIEW/UI state only. All domain records are protocol types.
  */
-import type { FileMetadata, DirectoryMetadata } from 'nearbytes-files';
+import type { FileMetadata, DirectoryMetadata, TimelineEvent } from 'nearbytes-files';
 import type { ChatTimelineItem } from 'nearbytes-chat';
 import type { ProfileConfig, VolumeConfig } from 'nearbytes-skeleton';
 import type { StatusKind } from 'nearbytes-widgets';
@@ -20,6 +20,14 @@ export interface FilesView {
 export interface ChatView {
   items: ChatTimelineItem[];
   draft: string;
+}
+
+export interface TimelineView {
+  /** When true, chat pane shows the unified hub event timeline. */
+  enabled: boolean;
+  events: TimelineEvent[];
+  /** Active read-only cursor; `null` = live head. */
+  cursorHash: string | null;
 }
 
 export interface AppStatus {
@@ -43,6 +51,7 @@ export interface AppState {
   friends: string[];
   files: FilesView;
   chat: ChatView;
+  timeline: TimelineView;
 }
 
 export function createAppState(): AppState {
@@ -56,7 +65,8 @@ export function createAppState(): AppState {
     activeHub: null,
     friends: [],
     files: { items: [], directories: [], cwd: '', selectedPath: null },
-    chat: { items: [], draft: '' }
+    chat: { items: [], draft: '' },
+    timeline: { enabled: false, events: [], cursorHash: null }
   });
   return state;
 }

@@ -14,10 +14,10 @@
   </Resizable.Pane>
   <Resizable.Handle />
   <Resizable.Pane defaultSize={48} minSize={28}>
-    <FileBrowser files={app.files} hubLabel={app.activeHub} />
+    <FileBrowser files={app.files} hubLabel={app.activeHub} readOnly={app.timeline.cursorHash !== null} />
   </Resizable.Pane>
   <Resizable.Handle />
   <Resizable.Pane defaultSize={30} minSize={20} maxSize={44}>
-    <FileInspector files={app.files} />
+    <FileInspector files={app.files} readOnly={app.timeline.cursorHash !== null} />
   </Resizable.Pane>
 </Resizable.PaneGroup>

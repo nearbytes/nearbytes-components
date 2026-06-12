@@ -34,7 +34,12 @@
       </Resizable.Pane>
       <Resizable.Handle />
       <Resizable.Pane defaultSize={28} minSize={20} maxSize={45}>
-        <ChatPane chat={app.chat} hubLabel={app.activeHub} ownKey={app.identity.publicKey} />
+        <ChatPane
+          chat={app.chat}
+          timeline={app.timeline}
+          hubLabel={app.activeHub}
+          ownKey={app.identity.publicKey}
+        />
       </Resizable.Pane>
     </Resizable.PaneGroup>
   </main>

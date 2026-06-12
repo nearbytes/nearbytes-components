@@ -3,11 +3,11 @@
 
 // State + boundaries
 export { createAppState, selectedFile } from './stores/appState.svelte.js';
-export type { AppState, AppStatus, FilesView, ChatView, Identity } from './stores/appState.svelte.js';
+export type { AppState, AppStatus, FilesView, ChatView, TimelineView, Identity } from './stores/appState.svelte.js';
 export { provideAppState, useAppState, provideAdapter, useAdapter } from './context.js';
 export type {
   NearbytesAdapter, SyncStatus, VolumeView, Whoami,
-  ProfileApi, HubApi, FileApi, ChatApi, FriendApi
+  ProfileApi, HubApi, VolumeCursorApi, FileApi, ChatApi, FriendApi
 } from './adapter.js';
 
 // Shell (full workbench layout lives here — nearbytes-app only boots adapter + hydrate)
