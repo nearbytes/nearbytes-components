@@ -24,7 +24,8 @@
     "prepack": "svelte-package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "svelte-check --tsconfig ./tsconfig.json",
-    "prepare": "svelte-package"
+    "prepare": "svelte-package",
+    "test": "yarn check"
   },
   "peerDependencies": {
     "nearbytes-widgets": "*",
@@ -32,16 +33,16 @@
   },
   "dependencies": {
     "@lucide/svelte": "^0.482.0",
-    "nearbytes-widgets": "github:nearbytes/nearbytes-widgets"
+    "nearbytes-widgets": "https://github.com/nearbytes/nearbytes-widgets.git#commit=66d561ae5dfd497224d8a0cdca29b56fd341a53f"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.3.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@tailwindcss/vite": "^4.0.0",
-    "nearbytes-chat": "github:nearbytes/nearbytes-chat",
-    "nearbytes-files": "github:nearbytes/nearbytes-files",
-    "nearbytes-skeleton": "github:nearbytes/nearbytes-skeleton",
-    "nearbytes-widgets": "github:nearbytes/nearbytes-widgets",
+    "nearbytes-chat": "https://github.com/nearbytes/nearbytes-chat.git#commit=31647941e797af7985a2a68c72485d8951606027",
+    "nearbytes-files": "https://github.com/nearbytes/nearbytes-files.git#commit=8ce77ce0d12d141fc7fe39d9e46e919e39f1bb40",
+    "nearbytes-skeleton": "https://github.com/nearbytes/nearbytes-skeleton.git#commit=9531ab1a0fd89b12f977f32220697b5b886c64a4",
+    "nearbytes-widgets": "https://github.com/nearbytes/nearbytes-widgets.git#commit=66d561ae5dfd497224d8a0cdca29b56fd341a53f",
     "svelte": "^5.20.0",
     "svelte-check": "^4.1.0",
     "tailwindcss": "^4.0.0",
