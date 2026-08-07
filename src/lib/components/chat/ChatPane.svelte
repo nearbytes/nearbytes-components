@@ -10,11 +10,14 @@
     chat,
     timeline,
     ownKey = null,
+    names = {},
     hubLabel = null
   }: {
     chat: ChatView;
     timeline: TimelineView;
     ownKey?: string | null;
+    /** Verified profile key → display name. */
+    names?: Record<string, string>;
     hubLabel?: string | null;
   } = $props();
   const adapter = useAdapter();
@@ -142,7 +145,7 @@
         <div class="flex flex-col gap-2.5 px-4 py-4">
           {#each chat.items as item, i (item.eventHash)}
             {@const prev = chat.items[i - 1]}
-            <ChatMessageView {item} {ownKey} grouped={prev !== undefined && prev.message.k === item.message.k} />
+            <ChatMessageView {item} {ownKey} {names} grouped={prev !== undefined && prev.message.k === item.message.k} />
           {/each}
         </div>
       </ScrollArea>
